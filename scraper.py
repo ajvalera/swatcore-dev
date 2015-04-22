@@ -11,7 +11,7 @@ user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
 headers = { 'User-Agent' : user_agent}
 
 # Well, maybe this will change later.
-semester = 'Fall_2015'
+semester = 'Fall_2014'
 
 # Priming read.
 run_to = '0'
@@ -40,7 +40,8 @@ cleaner = Cleaner(style=True,
                   safe_attrs=set(),
                   remove_tags=["b", "a"])
 
-with open("classes.json", 'w') as outfile:
+with open("fall2014.json", 'w') as outfile:
+    outfile.write("{\n")
     for i in range(1, num_courses, 50):
         values['run_tot'] = i
         data = urllib.parse.urlencode(values)
@@ -60,3 +61,5 @@ with open("classes.json", 'w') as outfile:
                 class_info = [col.text for col in row]
                 obj = dict(zip(row_headers, class_info))
                 json.dump(obj, outfile, sort_keys=True, indent=4)
+
+    outfile.write("}\n")
