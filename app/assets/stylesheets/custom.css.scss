@@ -80,20 +80,65 @@ li{
   color: $gray;
 }
 
+ul{
+  list-style: none;
+}
+
 .btn{
   font-size: 16px;
   background-color: $green;
   border-radius: 3px;
   border:none;
   text-transform: uppercase;
-  padding: 14px;
+  padding: 14px !important;
   margin-bottom: 10px;
+  color: white !important; 
   &:hover{
     background-color: rgba(0, 66, 55, 0.7) !important;
+    color: white !important;
   }
+  &:visited, &:active, &:focus{
+    color: white;
+    background-color: $green !important;
+  }
+}
+
+a{
   &:visited{
-    color: inherit;
+    color: $gray-lighter;
+    background: none !important;
   }
+  &:focus{
+    color: black !important;
+    background: none !important;
+  }
+}
+
+textarea, input{
+  padding: 5px;
+  margin: 15px 0 30px 0;
+  &:focus{
+    border-color: $green;
+    outline-style: none;
+  } 
+}
+
+select {
+  padding: 10px !important;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  text-overflow: '';
+  text-indent: 0.01px;
+  background: url(dropdown_sm.png) no-repeat 98% 50%;
+  border-radius: 0px;
+  &:focus{
+    border-color: $green !important;
+    outline-style: none !important;
+  } 
+}
+::-ms-expand {
+  display: none;
 }
 
 /* header */
@@ -101,9 +146,14 @@ li{
   background-color: white;
   border-bottom: 1px $gray-lighter solid;
   a{
-    &:hover{
+    &:hover, &:active &:visited{
       color: black !important; 
+      background: none;
     }
+  }
+  .dropdown-toggle{
+    color: $gray;
+    background: none;
   }
   .logo {
     float: left;
@@ -226,21 +276,57 @@ aside {
   }
  }
 
+
+.user_signup, .user_login, .new_course, .new_department, .new_professor{
+  a{
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+  #user_remember_me{
+    margin: 4px 0 0 15px;
+  }
+  label{
+    padding-left: 0;
+  } 
+  input[type="text"]{
+    margin-top: 0;
+  }
+}
+
+.homepage{
+  h1{
+    text-align: center;
+  }
+  .search-by{
+    line-height: 45px;
+  }
+  background: none;
+  .home-signup{
+    margin-top: 50px;
+  }
+  .home-review{
+    margin-top: 100px;
+    li{
+      margin-bottom: 30px;
+    }
+    .class{
+      font-size: 18px;
+    }
+  }
+}
+
 .field{
   padding: 10px 20px;
   background-color: white;
   border: 10px solid $lightest-gray;
+  margin-bottom: 60px !important;
+  h2{
+    text-align: left;
+  }
   h3{
     margin: 10px 0 35px 0 ;
     font-weight: bold; 
-  }
-  textarea{
-    padding: 5px;
-    margin: 15px 0 30px 0;
-    &:focus{
-      border-color: $green;
-      outline-style: none;
-    }
   }
  }
 
@@ -275,6 +361,9 @@ input, textarea, select, .uneditable-input {
 
 input {
   height: auto !important;
+  // &[name="checkbox"]{
+  //   display:inline;
+  // }
 }
 
 
@@ -291,6 +380,16 @@ input {
   .form-control {
     color: $state-danger-text;
   }
+}
+
+.alert-error{
+  color: red;
+  background: rgba(255,0,0,0.15);
+}
+
+.alert-notice, .alert-alert{
+  color: $green;
+  background: rgba(0, 102, 85, 0.15);
 }
 
 .checkbox {

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406190922) do
+ActiveRecord::Schema.define(version: 20150422030720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,10 +19,16 @@ ActiveRecord::Schema.define(version: 20150406190922) do
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.string   "crn"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.text     "description"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.integer  "professor_id"
     t.integer  "department_id"
+    t.string   "syllabus_file_name"
+    t.string   "syllabus_content_type"
+    t.integer  "syllabus_file_size"
+    t.datetime "syllabus_updated_at"
+    t.integer  "syllabus_uploader"
   end
 
   add_index "courses", ["crn"], name: "index_crn_on_courses", using: :btree
@@ -34,6 +40,20 @@ ActiveRecord::Schema.define(version: 20150406190922) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "flaggings", force: :cascade do |t|
+    t.string   "flaggable_type"
+    t.integer  "flaggable_id"
+    t.string   "flagger_type"
+    t.integer  "flagger_id"
+    t.integer  "flaggings_count"
+    t.text     "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "flaggings", ["flaggable_type", "flaggable_id"], name: "index_flaggings_on_flaggable_type_and_flaggable_id", using: :btree
+  add_index "flaggings", ["flagger_type", "flagger_id", "flaggable_type", "flaggable_id"], name: "access_flaggings", using: :btree
 
   create_table "professors", force: :cascade do |t|
     t.string   "name"
@@ -77,12 +97,12 @@ ActiveRecord::Schema.define(version: 20150406190922) do
   add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -93,6 +113,7 @@ ActiveRecord::Schema.define(version: 20150406190922) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "name"
+    t.boolean  "admin",                  default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

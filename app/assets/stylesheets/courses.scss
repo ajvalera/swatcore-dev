@@ -5,7 +5,7 @@
 @import "bootstrap";
 @import 'partials/base';
 
-.course_index, .department_index, .department_page{
+.course_index, .department_index, .department_page, .professor_index, .professor_page{
   h2{
 		text-align: left;
 		text-transform: uppercase;
@@ -13,26 +13,38 @@
   h3{
     margin-bottom: 30px;
   }
+  a{
+      .name{
+        color: $green !important;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      &:hover{
+        & >.name{
+        text-decoration: underline;
+      }
+    }
+  }
 	ul{
-		list-style: none;
 		border: 2px $gray-light solid;
 		border-radius: 3px;
 		padding: 15px 25px;
 		margin-bottom: 15px;
-		.name{
-			color: $green;
-			font-weight: bold;
-			font-size: 14px;
-		}
+		
 		span{
 			margin-right: 12px;
 		}
 		&:hover{
-			& >.name{
-				text-decoration: underline;
-			}
+      background: $lightest-gray;
 		}
 	}
+  .name{
+    a{
+      color: $green !important;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
 	img{
 		height: 30px;
 		width: 30px;
@@ -105,6 +117,11 @@
   i{
     margin-right: 4px;
   }
+  a{
+    .vcount{
+      margin: 0 !important; //this is really ugly, just a quick fix.
+    }
+  }
   .vote{
 	  &:hover{
   		text-decoration: underline;
@@ -114,7 +131,6 @@
   	color: $green;
   	font-weight: bold;
   }
-  
   .gravatar {
     float: left;
     margin-right: 10px;

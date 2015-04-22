@@ -1,8 +1,19 @@
 <% provide(:title, @course.name) %>
-
+<% avgs = @course.avg %>
 <div class="row">
     <section class="course_info col-md-8">
       <%= render 'shared/course_info' %>
+
+      <% if !@course.syllabus? %>
+        <%= form_for @course, :url => upload_course_path(@course), html: { multipart: true } do |f| %>
+          <%= f.label :syllabus, "Upload a syllabus (.pdf) for this class:" %>
+          <%= f.file_field(:syllabus, accept: "application/pdf") %>
+          <%= f.submit "Submit" %>
+        <% end %>
+      <% end %>
+
+
+
     </section>
     <section class="course_avg_ratings col-md-4"?>
       <table>
@@ -12,13 +23,25 @@
           <td><h4>Worth it?</h4></td>
         </thead>
         <tr>
-          <td><h3><%=  @course.avg[:clarity ]    %></h3></td>
-          <td><h3><%=  @course.avg[:workload]    %></h3></td>
-          <td><h3><%=  @course.avg[:worthit ]    %></h3></td>
+          <td><h3><%=  avgs[:clarity]    %></h3></td>
+          <td><h3><%=  avgs[:workload]   %></h3></td>
+          <td><h3><%=  avgs[:worthit]    %></h3></td>
         </tr>
       </table>
+
+
+
+      <% if @course.syllabus? %>
+        <%= link_to image_tag(@course.syllabus.url(:pdf_thumbnail)), @course.syllabus.url %>
+        <br />
+        <% if @course.syllabus_uploader? and User.exists?(:id => @course.syllabus_uploader)%>
+          Uploaded by <%= User.find(@course.syllabus_uploader).name %><br />
+        <% end %>
+        <a href="mailto:swatcoreteam@gmail.com">Report an issue with this syllabus.</a>
+      <% end %>
+
+
     </section>
-    <%#= link_to 'Admin: Edit Course', edit_course_path(@course) %>
 </div>
 
 <div class="row">
