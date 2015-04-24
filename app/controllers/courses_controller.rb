@@ -8,14 +8,8 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    redirect_to(search_path) 
-  end
-
-  # GET /search
-  def search
-    @search = Course.ransack(params[:q])
-    @courses = @search.result(distinct: true)
-  end
+    redirect_to(search_path)
+  end  
 
   # GET /courses/1
   # GET /courses/1.json
@@ -96,7 +90,7 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, 
+      params.require(:course).permit(:name,
         :department_id, :crn, :professor_id, :syllabus, :description)
     end
 
