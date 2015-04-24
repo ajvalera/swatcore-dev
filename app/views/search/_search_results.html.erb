@@ -1,0 +1,14 @@
+<!-- TODO: make everything completely tabular -->
+<% avgs = course.avg %>
+
+<ul>
+    <%= link_to course do%>
+      <li class="course name"><%= course.name %> (<%= course.crn %>) <%= fa_icon "file-pdf-o" if course.syllabus? %></li>
+      <li class="course prof"><%= course.prof_name_raw %></li>
+      <li class="course ratings">
+      <span>Clarity: <%= avgs[:clarity]%></span>
+      <span>Workload: <%= avgs[:workload]%></span>
+      <span>Worth it?: <%= avgs[:worthit]%></span>
+      <li class="course last"><%= course.last %>
+    <% end %>
+</ul>
